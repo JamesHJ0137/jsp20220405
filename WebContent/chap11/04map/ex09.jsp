@@ -21,7 +21,7 @@
 	list.add(new Student("lee", "m", 60));
 	list.add(new Student("harry", "m", 77));
 	
-	request.setAttribute("student", list);
+	request.setAttribute("students", list);
 	%>
 	<h1>학생들</h1>
 	<%-- table>thead>tr>th*3^^tbody>tr*6>td*3 --%>
