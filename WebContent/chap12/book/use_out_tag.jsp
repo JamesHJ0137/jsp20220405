@@ -20,6 +20,7 @@
 	try {
 		String path = request.getParameter("path");
 		reader = new FileReader(getServletContext().getRealPath(path));
+		// 22번줄 무슨 원인이 무엇인지 잘 모르겠음
 %>
 <pre>
 소스 코드 = <%= path %>
