@@ -10,7 +10,7 @@
 		content = content.trim();
 	}
 	content = content.replaceAll(
-			"<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?>)","");
+			"<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?>","");
 		
 	if(length != null && length.intValue() > 0 &&
 			content.length() > length.intValue()) {
@@ -21,5 +21,3 @@
 	}
 %>
 <%= content %>
-	
-<%-- 12~13번째줄이 어떤 문제인지 잘 모르겠음 --%>
