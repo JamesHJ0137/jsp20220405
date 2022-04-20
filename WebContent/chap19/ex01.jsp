@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="my" tagdir="/WEB-INF/tags/my1" %>
 <%@ page import= "java.util.*" %>
 <% request.setCharacterEncoding("utf-8");%>
 <!DOCTYPE html>
@@ -14,13 +13,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<%
-pageContext.setAttribute("pageAttr1", "pageVal1");
-request.setAttribute("reqAttr1", "reqVal1");
-session.setAttribute("sessAttr1", "sessVal1");
-application.setAttribute("appAttr1", "appVal1");
-%>
- 
+	<form action="${pageContext.request.contextPath }/s5/servlet01" method="post">
+		이름 : <input type="text" name="name" /> <br />
+		주소 : <input type="text" name="address" /> <br />
+			<input type="submit" value="등록" />
+	</form>
+	
+	<hr />
+	
+	<form action="${pageContext.request.contextPath }/s5/servlet02" method="post">
+		별명 : <input type="text" name="nickName" /> <br />
+		노래 : <input type="text" name="song" /> <br />
+			<input type="submit" />
+	
+	</form>
+	
 </body>
 </html>

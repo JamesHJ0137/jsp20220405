@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="my" tagdir="/WEB-INF/tags/my1" %>
 <%@ page import= "java.util.*" %>
 <% request.setCharacterEncoding("utf-8");%>
 <!DOCTYPE html>
@@ -15,12 +14,26 @@
 </head>
 <body>
 
-<%
-pageContext.setAttribute("pageAttr1", "pageVal1");
-request.setAttribute("reqAttr1", "reqVal1");
-session.setAttribute("sessAttr1", "sessVal1");
-application.setAttribute("appAttr1", "appVal1");
-%>
- 
+	<c:if test="${not empty sessionScope.loggedInUser }" var= "login">
+		<%-- 로그인 한 경우 --%>
+		<a href="${pageContext.request.contextPath }/s5/servlet03?logout=true">로그아웃</a>
+	<br />
+	<a href="${pageContext.request.contextPath }/s5/memberOnly">멤버 전용 컨텐츠 보기</a>
+	</c:if>
+
+	<hr />
+	
+	<c:if test="${not login }">
+	
+	<h1>로그인 폼</h1>
+	<form action="${pageContext.request.contextPath }/s5/servlet03" method="post">
+		아이디 : <input type="text" name="id" /> <br />
+		암호 : <input type="password" name="pw" /> <br />
+			<input type="submit" value="로그인" />
+	</form>
+	
+	</c:if>
+	
+	
 </body>
 </html>
