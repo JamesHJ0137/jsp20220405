@@ -13,6 +13,15 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
+<listener>
+	<listener-class>chap20.ServletContextListener03</listener-class>
+</listener>
+
+<context-param>
+	<param-name>adminEmail</param-name>
+	<param-value>admin1234@gmail.com</param-value>
+</context-param>
+
 	<session-config>
 		<!-- session 유지시간 기본값: 30분 -->
 		<!-- 마지막 접근 후 유지시간 지나면 session 삭제됨 -->
