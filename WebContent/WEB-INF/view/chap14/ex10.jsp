@@ -13,25 +13,32 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="S14Servlet13">
-	나라 : <select name="country" id="">
-		<c:forEach items="${countryList }" var="country">
-			<option value="${country }">${country }</option>
-		</c:forEach>
-
-	</select>
+	<c:if test="${empty employee }">
+		<form action="">
+			직원번호 <input type="number" name="id" value="1" />
+			<input type="submit" value="조회" />
+		</form>
+	</c:if>
 	
-	<br />
-	
-	도시 : <select name="city" id="">
-		<c:forEach items="${cityList }" var="city">
-			<option value="${city }">${city }</option>
-		</c:forEach>
-	</select>
-	
-	<br />
-	
-	<input type="submit" value="조회" />
+	<c:if test="${not empty employee }">
+		<form method="post">
+		Last Name :
+		<input type="text" name="lastName" value="${employee.lastName }"/>
+		<br />
+		First Name :
+		<input type="text" name="firstName" value="${employee.firstName }"/>
+		<br />
+		Birth Date :
+		<input type="date" name="birthDate" value="${employee.birthDate }"/>
+		<br />
+		Picture :
+		<input type="text" name="pic" value="${employee.photo }"/>
+		<br />
+		Notes :
+		<textarea name="notes" >${employee.notes }</textarea>
+		<br />
+		<input type="submit" value="수정" />
 	</form>
+	</c:if>
 </body>
 </html>
