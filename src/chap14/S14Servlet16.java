@@ -82,8 +82,54 @@ public class S14Servlet16 extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		String sql = "UPDATE Employees "
+				+ "SET LastName = ?, "
+				+ "FirstName = ?, "
+				+ "BirthDate = ?, "
+				+ "Photo = ?, "
+				+ "Notes = ? "
+				+ "WHERE EmployeeID = ?";
+		
+		String lastName = request.getParameter("lastName");
+		String firstName = request.getParameter("firstName");
+		String birthDate = request.getParameter("birthDate");
+		String picture = request.getParameter("pic");
+		String notes = request.getParameter("notes");
+		String id = request.getParameter("id"); // query (?)로 넘어가기 때문에 id를 읽을 수 있음
+		
+		int result = 0;
+		
+		ServletContext application = getServletContext();
+		DataSource ds = (DataSource) application.getAttribute("dbpool");
+		
+		try (
+				Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			
+		pstmt.setString(1, lastName);
+		pstmt.setString(2, firstName);
+		pstmt.setString(3, birthDate);
+		pstmt.setString(4, picture);
+		pstmt.setString(5, notes);
+		pstmt.setInt(6, Integer.parseInt(id));
+		
+		result = pstmt.executeUpdate();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		String location = "S14Servlet16";
+		if(result == 1) {
+			// 성공
+			location += "?success=true";
+		} else {
+			// 실패
+			location += "?success=false";
+		}
+		
+		response.sendRedirect(location);
 	}
 
 }

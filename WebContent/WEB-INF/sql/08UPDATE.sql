@@ -33,3 +33,7 @@ SELECT * FROM Products;
 UPDATE Products
 SET Price = Price + 2;
 
+SELECT 1 = 1; -- TRUE
+SELECT 1 = 2; -- FALSE
+
+SELECT * FROM Employees;
