@@ -68,14 +68,14 @@ public class S14Servlet19 extends HttpServlet {
 			try (ResultSet rs = pstmt.executeQuery();) { // 이후 원래 하던거에 담아서 쓰면 됌
 				
 				while (rs.next()) {
-					Customer cus = new Customer();
-					cus.setId(rs.getInt(1));
-					cus.setName(rs.getString(2));
-					cus.setCity(rs.getString(3));
-					cus.setCountry(rs.getString(4));
-					cus.setPostCode(rs.getString(5));
+					Customer customer = new Customer();
+					customer.setId(rs.getInt(1));
+					customer.setName(rs.getString(2));
+					customer.setCity(rs.getString(3));
+					customer.setCountry(rs.getString(4));
+					customer.setPostCode(rs.getString(5));
 
-					list.add(cus);
+					list.add(customer);
 				}
 			}
 		} catch (Exception e) {
