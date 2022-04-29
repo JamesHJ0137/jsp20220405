@@ -15,6 +15,10 @@
 </head>
 <body>
 	<h1>WEB-INF 폴더 안에 있는 ex01 jsp</h1>
+	
+	<c:if test="true">
+		<p>hello</p>
+	</c:if> 
 </body>
 </html>
 

@@ -12,20 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import app01.dao.BoardDao;
-import app01.dto.BoardDto;
 
 /**
- * Servlet implementation class BoardGetServlet
+ * Servlet implementation class BoardRemoveServlet
  */
-@WebServlet("/board/get")
-public class BoardGetServlet extends HttpServlet {
+@WebServlet("/board/remove")
+public class BoardRemoveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DataSource ds;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BoardGetServlet() {
+	public BoardRemoveServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -42,24 +41,8 @@ public class BoardGetServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// request parameter 가공
-		int id = Integer.parseInt(request.getParameter("id"));
-		
-		// bussines logic
-		try (Connection con = ds.getConnection()) {
-			BoardDao dao = new BoardDao();
-			BoardDto board = dao.get(con, id);
-			
-			// add attribute
-			request.setAttribute("board", board);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// forward / redirect
-		String path = "/WEB-INF/view/app01/get.jsp";
-		request.getRequestDispatcher(path).forward(request, response);
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -68,8 +51,45 @@ public class BoardGetServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		// request 파라미터 수집, 가공
+		String idStr = request.getParameter("id");
+		int id = Integer.parseInt(idStr);
+		
+		// 비지니스 로직 처리(db crud)
+		BoardDao dao = new BoardDao();
+		boolean success = false;
+		try (Connection con = ds.getConnection()) {
+			
+			success = dao.delete(con, id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 결과 set
+		
+		
+		// forward/redirect
+		String location = request.getContextPath() + "/board/list";
+		if (success) {
+			location += "?success=true";
+		} else {
+			location += "?success=false";
+		}
+		
+		response.sendRedirect(location);
+		
+		
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
