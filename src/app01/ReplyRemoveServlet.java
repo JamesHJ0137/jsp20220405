@@ -2,7 +2,6 @@ package app01;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -12,23 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import app01.dao.BoardDao;
 import app01.dao.ReplyDao;
-import app01.dto.BoardDto;
-import app01.dto.ReplyDto;
 
 /**
- * Servlet implementation class BoardGetServlet
+ * Servlet implementation class ReplyRemoveServlet
  */
-@WebServlet("/board/get")
-public class BoardGetServlet extends HttpServlet {
+@WebServlet("/reply/delete")
+public class ReplyRemoveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DataSource ds;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BoardGetServlet() {
+	public ReplyRemoveServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -45,31 +41,8 @@ public class BoardGetServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// request parameter 가공
-		int id = Integer.parseInt(request.getParameter("id"));
-		
-		// bussines logic
-		try (Connection con = ds.getConnection()) {
-			
-			// 게시물 본문
-			BoardDao dao = new BoardDao();
-			BoardDto board = dao.get(con, id);
-			
-			// 댓글 목록
-			ReplyDao replyDao = new ReplyDao();
-			List<ReplyDto> replyList = replyDao.list(con, id);
-			
-			// add attribute
-			request.setAttribute("board", board);
-			request.setAttribute("replyList", replyList);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// forward / redirect
-		String path = "/WEB-INF/view/app01/get.jsp";
-		request.getRequestDispatcher(path).forward(request, response);
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -78,8 +51,41 @@ public class BoardGetServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		// request 파라미터 수집/ 가공
+		String idStr = request.getParameter("id");
+		int id = Integer.parseInt(idStr);
+		
+		String boardId = request.getParameter("boardId");
+		
+		// bussiness logic 처리
+		// sql:
+		// DELETE FROM Reply WHERE id = ?
+		ReplyDao dao = new ReplyDao();
+		
+		boolean success = false;
+		try (Connection con = ds.getConnection()) {
+			success = dao.delete(con, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// 결과세팅..(xxx)
+		
+		// forward / redirect
+		String loc = request.getContextPath() + "/board/get?id=" + boardId;
+		response.sendRedirect(loc);
+		
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
