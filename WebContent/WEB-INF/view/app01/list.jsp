@@ -23,15 +23,14 @@
 				
 				<c:if test="${not empty param.success }">
 					<c:if test="${param.success }">
-					<div class="alert alert-primary">
-						게시물이 삭제되었습니다.
-					</div>
+						<div class="alert alert-primary">
+							게시물이 삭제되었습니다.
+						</div>
 					</c:if>
-					
 					<c:if test="${not param.success }">
-					<div class="alert alert-danger">
-						게시물이 삭제하는 도중 문제가 발생되었습니다.
-					</div>
+						<div class="alert alert-danger">
+							게시물 삭제 중 문제 발생하였습니다.
+						</div>
 					</c:if>
 				</c:if>
 				
@@ -57,6 +56,14 @@
 									<a href="${getUrl }">
 										${board.title }
 									</a>
+									
+									<c:if test="${board.numOfReply > 0 }">
+										<span>
+											<i class="fa-solid fa-comments"></i>
+											${board.numOfReply }
+										</span>
+									</c:if>
+									
 								</td>
 								<td>${board.prettyInserted }</td>
 							</tr>
