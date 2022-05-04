@@ -1,14 +1,10 @@
 package app01.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
+import java.time.*;
+import java.util.*;
 
-import app01.dto.ReplyDto;
+import app01.dto.*;
 
 public class ReplyDao {
 	
@@ -98,6 +94,19 @@ public class ReplyDao {
 		}
 		
 		return false;
+	}
+
+	public void deleteByBoardId(Connection con, int id) throws SQLException {
+		String sql = "DELETE FROM Reply "
+				+ "WHERE board_id = ? ";
+		
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, id);
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+
 	}
 }
 
