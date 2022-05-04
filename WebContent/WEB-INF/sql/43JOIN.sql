@@ -77,4 +77,10 @@ FROM Orders o JOIN OrderDetails od ON od.OrderID = o.OrderID AND o.OrderDate BET
 GROUP BY c.CategoryID
 ORDER BY Total DESC;
 
+SELECT c.CategoryID, c.CategoryName, SUM(ifnull(od.Quantity, 0)) Total
+FROM Orders o JOIN OrderDetails od ON o.OrderID = od.OrderID AND OrderDate BETWEEN '1996-07-01' AND '1996-08-01'
+				JOIN Products p ON p.ProductID = od.ProductID
+                RIGHT JOIN Categories c ON c.CategoryId = p.categoryID
+GROUP BY c.CategoryID
+ORDER BY Total DESC;
 
